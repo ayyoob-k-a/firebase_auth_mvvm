@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "204790043057",
+    "project_id": "auth-with-fb-35feb",
+    "storage_bucket": "auth-with-fb-35feb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204790043057:android:ae8053294d0d6cb59bad90",
+        "android_client_info": {
+          "package_name": "com.example.test_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkK5qcrfoXOf5NFXKkewBhZ25jN2a5Vl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
