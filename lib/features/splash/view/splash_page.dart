@@ -78,7 +78,7 @@ class _SplashView extends StatelessWidget {
         child: _FadeInSubtitle(
           delay: const Duration(milliseconds: 2000),
           child: Text(
-            'v1.0.0',
+            'v.1',
             textAlign: TextAlign.center,
             style: GoogleFonts.outfit(
               fontSize: 12,

@@ -22,9 +22,9 @@ class CompleteProfileBloc
   CompleteProfileBloc({
     required SaveProfileUseCase saveProfileUseCase,
     required UserEntity user,
-  })  : _saveProfileUseCase = saveProfileUseCase,
-        _user = user,
-        super(const CompleteProfileInitial()) {
+  }) : _saveProfileUseCase = saveProfileUseCase,
+       _user = user,
+       super(const CompleteProfileInitial()) {
     on<ProfileFirstNameChanged>(_onFirstNameChanged);
     on<ProfileLastNameChanged>(_onLastNameChanged);
     on<ProfileDobChanged>(_onDobChanged);
@@ -48,28 +48,34 @@ class CompleteProfileBloc
         );
 
   void _onFirstNameChanged(
-          ProfileFirstNameChanged event, Emitter<CompleteProfileState> emit) =>
-      emit(_form.copyWith(firstName: event.value));
+    ProfileFirstNameChanged event,
+    Emitter<CompleteProfileState> emit,
+  ) => emit(_form.copyWith(firstName: event.value));
 
   void _onLastNameChanged(
-          ProfileLastNameChanged event, Emitter<CompleteProfileState> emit) =>
-      emit(_form.copyWith(lastName: event.value));
+    ProfileLastNameChanged event,
+    Emitter<CompleteProfileState> emit,
+  ) => emit(_form.copyWith(lastName: event.value));
 
   void _onDobChanged(
-          ProfileDobChanged event, Emitter<CompleteProfileState> emit) =>
-      emit(_form.copyWith(dob: event.value));
+    ProfileDobChanged event,
+    Emitter<CompleteProfileState> emit,
+  ) => emit(_form.copyWith(dob: event.value));
 
   void _onGenderChanged(
-          ProfileGenderChanged event, Emitter<CompleteProfileState> emit) =>
-      emit(_form.copyWith(gender: event.value));
+    ProfileGenderChanged event,
+    Emitter<CompleteProfileState> emit,
+  ) => emit(_form.copyWith(gender: event.value));
 
   void _onNationalityChanged(
-          ProfileNationalityChanged event, Emitter<CompleteProfileState> emit) =>
-      emit(_form.copyWith(nationality: event.value));
+    ProfileNationalityChanged event,
+    Emitter<CompleteProfileState> emit,
+  ) => emit(_form.copyWith(nationality: event.value));
 
   void _onLanguageChanged(
-          ProfileLanguageChanged event, Emitter<CompleteProfileState> emit) =>
-      emit(_form.copyWith(language: event.value));
+    ProfileLanguageChanged event,
+    Emitter<CompleteProfileState> emit,
+  ) => emit(_form.copyWith(language: event.value));
 
   // ── Submission ────────────────────────────────────────────────────────────
 
@@ -81,26 +87,30 @@ class CompleteProfileBloc
     final String? error = _validate(s);
 
     if (error != null) {
-      emit(CompleteProfileFailure(
-        errorMessage: error,
+      emit(
+        CompleteProfileFailure(
+          errorMessage: error,
+          firstName: s.firstName,
+          lastName: s.lastName,
+          dob: s.dob,
+          gender: s.gender,
+          nationality: s.nationality,
+          language: s.language,
+        ),
+      );
+      return;
+    }
+
+    emit(
+      CompleteProfileLoading(
         firstName: s.firstName,
         lastName: s.lastName,
         dob: s.dob,
         gender: s.gender,
         nationality: s.nationality,
         language: s.language,
-      ));
-      return;
-    }
-
-    emit(CompleteProfileLoading(
-      firstName: s.firstName,
-      lastName: s.lastName,
-      dob: s.dob,
-      gender: s.gender,
-      nationality: s.nationality,
-      language: s.language,
-    ));
+      ),
+    );
 
     final profile = UserProfileEntity(
       uid: _user.uid,
@@ -118,25 +128,29 @@ class CompleteProfileBloc
 
     switch (result) {
       case AppSuccess():
-        emit(CompleteProfileSuccess(
-          profile: profile,
-          firstName: profile.firstName,
-          lastName: profile.lastName,
-          dob: profile.dob,
-          gender: profile.gender,
-          nationality: profile.nationality,
-          language: profile.language,
-        ));
+        emit(
+          CompleteProfileSuccess(
+            profile: profile,
+            firstName: profile.firstName,
+            lastName: profile.lastName,
+            dob: profile.dob,
+            gender: profile.gender,
+            nationality: profile.nationality,
+            language: profile.language,
+          ),
+        );
       case AppFailure(:final message):
-        emit(CompleteProfileFailure(
-          errorMessage: message,
-          firstName: s.firstName,
-          lastName: s.lastName,
-          dob: s.dob,
-          gender: s.gender,
-          nationality: s.nationality,
-          language: s.language,
-        ));
+        emit(
+          CompleteProfileFailure(
+            errorMessage: message,
+            firstName: s.firstName,
+            lastName: s.lastName,
+            dob: s.dob,
+            gender: s.gender,
+            nationality: s.nationality,
+            language: s.language,
+          ),
+        );
     }
   }
 

@@ -42,9 +42,23 @@ class LoginLoading extends LoginState {
   const LoginLoading({required super.email, required super.password});
 }
 
-class LoginSuccess extends LoginState {
+/// Profile is complete — navigate to Home.
+class LoginNavigateToHome extends LoginState {
+  final String uid;
+  const LoginNavigateToHome({
+    required this.uid,
+    required super.email,
+    required super.password,
+  });
+
+  @override
+  List<Object?> get props => [...super.props, uid];
+}
+
+/// Profile is missing or incomplete — navigate to Complete Profile.
+class LoginNavigateToCompleteProfile extends LoginState {
   final UserEntity user;
-  const LoginSuccess({
+  const LoginNavigateToCompleteProfile({
     required this.user,
     required super.email,
     required super.password,

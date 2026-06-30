@@ -1,4 +1,4 @@
-/// Centralised lists used in dropdown/selector widgets.
+// Centralised lists used in dropdown/selector widgets.
 
 const List<String> kGenders = ['Male', 'Female'];
 

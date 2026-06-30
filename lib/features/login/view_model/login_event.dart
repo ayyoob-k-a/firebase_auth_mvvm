@@ -24,7 +24,6 @@ class LoginPasswordVisibilityToggled extends LoginEvent {
   const LoginPasswordVisibilityToggled();
 }
 
-/// User tapped the SIGN IN button.
 class LoginSubmitted extends LoginEvent {
   const LoginSubmitted();
 }

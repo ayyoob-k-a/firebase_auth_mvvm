@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
 class _HomeView extends StatelessWidget {
   const _HomeView();
 
-  Future<void> _signOut(BuildContext context) async {
+  Future<void> _performSignOut(BuildContext context) async {
     final cubit = context.read<HomeCubit>();
     final result = await cubit.signOut();
     if (!context.mounted) return;
@@ -60,10 +60,57 @@ class _HomeView extends StatelessWidget {
       );
     } else if (result is AppFailure) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text((result as AppFailure).message,
+        content: Text((result).message,
             style: GoogleFonts.outfit()),
         backgroundColor: Colors.redAccent,
       ));
+    }
+  }
+
+  Future<void> _signOut(BuildContext context) async {
+    final shouldLogout = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppColors.surface,
+        title: Text(
+          'Sign Out',
+          style: GoogleFonts.dmSerifDisplay(
+            color: AppColors.onBackground,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to sign out?',
+          style: GoogleFonts.outfit(
+            color: AppColors.subtitle,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(
+              'Cancel',
+              style: GoogleFonts.outfit(
+                color: AppColors.subtitle,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: Text(
+              'Sign Out',
+              style: GoogleFonts.outfit(
+                color: Colors.redAccent,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldLogout == true && context.mounted) {
+      await _performSignOut(context);
     }
   }
 

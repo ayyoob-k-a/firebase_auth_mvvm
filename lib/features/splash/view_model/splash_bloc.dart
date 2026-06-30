@@ -3,9 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/app_result.dart';
-import '../../../data/datasources/auth/auth_remote_datasource.dart';
 import '../../../data/datasources/profile/profile_remote_datasource.dart';
-import '../../../data/repositories/auth_repository_impl.dart';
 import '../../../data/repositories/profile_repository_impl.dart';
 import '../../../domain/entities/user_entity.dart';
 import '../../../domain/usecases/get_profile_usecase.dart';
